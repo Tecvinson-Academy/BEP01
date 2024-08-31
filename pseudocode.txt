@@ -1,0 +1,380 @@
+from email_validator IMPORT validate_email,EmailNotValidError as e
+IMPORT datetime
+IMPORT pandas as pd
+IMPORT matplotlib.pyplot as plt
+from datetime IMPORT datetime, date
+IMPORT random
+IMPORT string
+IMPORT pandas as pd
+IMPORT seaborn as sns
+IMPORT os
+
+date_time equal to datetime.now FUNCTION
+transaction_id equal to 'BEPO1' plus "".join(random.choices(string.digits, kequal to8))
+
+DEFINE FUNCTION CALLED: withdrawal_df(account_number):
+    d_df equal to READ csv file:("deposit_database.csv")
+    balance equal to d_df balance column.iloc[0]
+    amount equal to float(input("Enter the amount to withdraw: "))
+    IF the amount <equal to balance:
+        category_type equal to input("Enter the withrawal category: ").title FUNCTION              
+        otp equal to str(random integer numbers from (100000, 999999))
+        DISPLAY(f"Your OTP is {otp} please keep safe")
+        otp_check equal to input("Type in the OTP sent to your email: ")
+        IF the otp_check equal toequal to otp:
+            IF the not if the file in the braket does not existing in the paths of the operating sysem("withdrawal_database.csv"):
+                data equal to {"Transaction_id": [], "Account_number": [], "Withdrawal": [], "Expense_category": []}
+                empty_df equal to pd.DataFrame.from_dict(data)
+                updated_data equal to {"Transaction_id": [transaction_id], "Account_number": [account_number], "Withdrawal": [amount], "Expense_category": [category_type]}
+                new_df equal to pd.DataFrame.from_dict(updated_data)
+                withdr_df equal to pd.concat([empty_df, new_df], ignore_indexequal toTrue)
+                updated_data equal to withdr_df.merge(d_df, on equal to ["Transaction_id", "Account_number"], how equal to 'left')
+                updated_data balance column equal to (d_df balance column - withdr_withdrawal column).cumsum FUNCTION
+                updated_data date column equal to date_time.strftime('%m/%d/%Y')
+                updated_data month column equal to date_time.strftime('%b')
+                updated_data time column equal to date_time.strftime('%H:%M:%S')
+                updated_data save file to a csv file: ('withdrawal_database.csv', indexequal toFalse)     
+                DISPLAY('Withdrawal successful')   
+            ELSE: 
+                df equal to READ csv file:("withdrawal_database.csv")
+                updated_data equal to {"Transaction_id": [transaction_id], "Account_number": [account_number], "Withdrawal": [amount], "Expense_category": [category_type]}
+                new_df equal to pd.DataFrame.from_dict(updated_data)
+                updated_data equal to new_df.merge(df, on equal to ["Transaction_id", "Account_number", "Withdrawal", "Expense_category"], how equal to 'outer')
+                updated_data balance column equal to (df balance column - new_withdrawal column).cumsum FUNCTION
+                updated_data date column equal to date_time.strftime('%m/%d/%Y')
+                updated_data month column equal to date_time.strftime('%b')
+                updated_data time column equal to date_time.strftime('%H:%M:%S')
+                updated_data save file to a csv file: ('withdrawal_database.csv', indexequal toFalse) 
+                DISPLAY('Withdrawal successful')
+                return updated_data         
+        ELSE:
+            DISPLAY("Incorrect OTP. Please try again.")        
+    ELSE:
+        DISPLAY("Insufficient balance.")
+    
+
+DEFINE FUNCTION CALLED: deposit_df (d_category_type, account_number):
+    c_df equal to using pandas module to READ csv file:('customer_database.csv')
+    amount equal to float(input("Enter the amount to deposit: "))
+    IF the amount greater than or  0:
+        categories equal to ["Savings", "Fixed Deposit" , "Saving"]
+        for d_category_type in categories:
+            IF the d_category_type equal toequal to "Saving":
+                d_category_type equal to d_category_type  plus "s"
+                IF the not if the file in the braket does not existing in the paths of the operating sysem("deposit_database.csv"):
+                    data equal to {"Transaction_id": [], "Account_number": [], "Deposit": [], "Deposit_type": []}
+                    empty_df equal to pd.DataFrame.from_dict(data)
+                    updated_data equal to {"Transaction_id": [transaction_id], "Account_number": [account_number], "Deposit": [amount], "Deposit_type": [d_category_type]}
+                    new_df equal to pd.DataFrame.from_dict(updated_data)
+                    deposit_df equal to pd.concat([empty_df, new_df], ignore_indexequal toTrue)
+                    updated_data equal to deposit_df.merge(c_df, on equal to ["Transaction_id", "Account_number", "Deposit"], how equal to 'left')
+                    updated_data balance column equal to (df balance column  plus deposit_Deposit column).cumsum FUNCTION
+                    updated_data date column equal to date_time.strftime('%m/%d/%Y')
+                    updated_data month column equal to date_time.strftime('%b')
+                    updated_data time column equal to date_time.strftime('%H:%M:%S')
+                    updated_data save file to a csv file: ('deposit_database.csv', indexequal toFalse)     
+                    DISPLAY('Deposit successful')   
+                ELSE: 
+                    df equal to READ csv file:("deposit_database.csv")
+                    updated_data equal to {"Transaction_id": [transaction_id], "Account_number": [account_number], "Deposit": [amount], "Deposit_type": [d_category_type]}
+                    new_df equal to pd.DataFrame.from_dict(updated_data)
+                    updated_data equal to new_df.merge(df, on equal to ["Transaction_id", "Account_number", "Deposit", "Deposit_type"], how equal to 'outer')
+                    updated_data balance column equal to (df balance column  plus new_Deposit column).cumsum FUNCTION
+                    updated_data date column equal to date_time.strftime('%m/%d/%Y')
+                    updated_data month column equal to date_time.strftime('%b')
+                    updated_data time column equal to date_time.strftime('%H:%M:%S')
+                    updated_data save file to a csv file: ('deposit_database.csv', indexequal toFalse) 
+                    DISPLAY('Deposit successful') 
+                return updated_data
+        ELSE:
+            DISPLAY('ValueError: Check your spelling. Deposit type [Savings, Fixed Deposit]')
+    ELSE:
+        return f"Invalid amount. Please try again."
+    return f"Your deposit of {amount} has been successfully deposited."
+
+DEFINE FUNCTION CALLED: analyser FUNCTION:
+    withdraw_df equal to READ csv file:('withdrawal_database.csv')
+    customer_df equal to READ csv file:('deposit_database.csv')
+    df equal to pd.concat([customer_df, withdraw_df], ignore_index equal to True)
+    df["Transaction_type"] equal to df.apply(lambda row:"Deposit" IF the pd.notna(row["Deposit"]) ELSE "Withdrawal", axis  equal to 1) 
+    df equal to df.drop(["Account Name","DOB" , "Email",  "Account_type"], axis equal to 1) 
+    Description column equal to deposit_type column combine with the (df["Expense_category"])
+    Description column equal to Description columncover to a data type ("category")
+    Deposit column equal to Deposit columncover to a data type (float).fillna(0)
+    withdrawal column equal to withdrawal columncover to a data type (float).fillna(0)
+    cols equal to list(df.columns) 
+    last_three_cols equal to cols[-3:]
+    remaining_cols equal to cols[:-3]
+    new_column_order equal to remaining_cols[:1]  plus last_three_cols  plus remaining_cols[1:]
+    df equal to df.reindex(columns equal to new_column_order)
+    df["Transaction_type"] equal to df["Transaction_type"]cover to a data type ("category")
+    Description column equal to Description columncover to a data type ("category")
+    df["Amount"] equal to df.apply(lambda row:row["Deposit"] IF the row["Deposit"] !equal to 0 ELSE row["Withdrawal"], axis  equal to 1) 
+    df['Time_dep_dIF thef'] equal to df['Deposit'].dIF thef FUNCTION
+    df["Time_dep_dIF thef"] equal to df["Time_dep_dIF thef"]cover to a data type (float).fillna(0)
+    df['Time_witd_dIF thef'] equal to df['Withdrawal'].dIF thef FUNCTION
+    df["Time_witd_dIF thef"] equal to df["Time_witd_dIF thef"]cover to a data type (float).fillna(0)
+    df['Consecutive_dep_drops'] equal to df['Time_dep_dIF thef'].rolling(windowequal to2).apply(lambda x: all(x < 0))
+    df['Consecutive_witd_drops'] equal to df['Time_witd_dIF thef'].rolling(windowequal to2).apply(lambda x: all(x < 0))
+    df['Consecutive_dep_drops'] equal to df['Consecutive_dep_drops'].fillna(0)
+    df['Consecutive_witd_drops'] equal to df['Consecutive_witd_drops'].fillna(0)
+    df save file to a csv file: ('analyser.csv', indexequal toFalse)
+    return df     
+
+DEFINE FUNCTION CALLED: generate_recommendations FUNCTION:
+    df equal to READ csv file:("analyser.csv")
+    recommendations equal to []
+    FOR the i, row in df.iterrows FUNCTION:
+        IF the row['Time_dep_dIF thef'] < 0:
+            IF the row['Consecutive_dep_drops'] equal toequal to 1.0:
+                recommendations.append(f"Noticeable pattern: Deposits have consistently decreased over the last two months (up to {row time column}). Consider reviewing your spending habits and setting up a stricter budget.")
+            ELSE:
+                recommendations.append(f"Alert: Deposits dropped in {row time column}. Consider increasing your deposits next month to meet savings goals.")
+        ELSE:
+            recommendations.append(f"Good job in {row time column}: Deposits increased. Keep up the good work!")
+        IF the row['Time_witd_dIF thef'] greater than or  0:
+            IF the row['Consecutive_witd_drops']:
+                recommendations.append(f"Noticeable pattern: Withdrawal have consistently increased over the last two withdrawals (up to {row time column}). Consider reviewing your spending habits and setting up a stricter budget.")
+            ELSE:
+                recommendations.append(f"Alert: Your withdrawal increased in {row time column}. Consider reducing your withrawal next time to meet savings goals.")
+        ELSE:
+            recommendations.append(f"A big shout out for you!!! Your withdrawal on  {row time column} reduced. Keep up the good work!")
+    category_recommendations equal to {
+    'Grocery': 'Consider setting a weekly grocery budget.',
+    'Movie': 'Limit entertainment expenses to maintain savings.',
+    'Restaurant': 'Eating out frequently can impact your savings.',
+    'Rent': 'Ensure rent is a fixed part of your budget.',
+    'Bill': 'Review utility bills regularly to avoid overspending.',
+    'Uncategorized': 'Find away around saving more.',
+    'Lease': 'Ensure lease is a fixed part of your budget.',
+    'Travel': "Ensure travel expenses is a fixed part of your budget.",
+    'Supplies':  "Ensure you make deposits after sales to balance your account.",
+    'Others' : "Ensure your expense is a fixed part of your budget.",
+    'Other': "Ensure your expense is a fixed part of your budget.",
+    "Office Expenses": "Recommend a hybrid or remote job type for your employees. This will reduce cost.",
+    'Postage': 'Recommend usage of E-mails for posting of your documents'
+    }
+    for word, recommendation in category_recommendations.items FUNCTION:
+        IF the word in df['Description']:
+            DISPLAY(recommendation)
+        DISPLAY('No specIF theic recommendation.')
+    df['Recommendation'] equal to df.apply(generate_recommendations FUNCTION, axisequal to1)
+    # Generate recommendations for the customer
+    recommendations equal to generate_recommendations FUNCTION
+    for rec in recommendations:
+        DISPLAY(rec, end equal to "")
+DEFINE FUNCTION CALLED: visuals FUNCTION:
+    df equal to READ csv file:("analyser.csv")
+    # Create a figure and an array of axes: 2 rows, 1 column with shared y axis
+    sns.set_style("darkgrid")
+    fig, axes equal to plt.subplots(1, 2, figsizeequal to(18, 6)) 
+    plt.subplots_adjust(topequal to0.93)
+    sns.barplot(xequal to'Transaction_type', yequal to'Amount', dataequal todf, hue equal to "Transaction_type", axequal toaxes[0], ci equal to None)
+    axes[0].set_title('Transaction Analysis')
+    axes[0].set_xlabel('Time')
+    axes[0].set_ylabel('Deposit Amount')
+    axes[0].set_xticklabels(axes[0].get_xticklabels FUNCTION, rotationequal to90)
+    # Scatter plot 2: column1 vs column3
+    sns.barplot(x equal to "Expense_category", yequal to'Amount', dataequal todf, hue equal to "Expense_category", axequal toaxes[1], ciequal toNone)
+    axes[1].set_title('Withdrawal Analysis')
+    axes[1].set_xlabel('Time')
+    axes[1].set_ylabel('Withdrawal Amount')
+    axes[1].set_xticklabels(axes[1].get_xticklabels FUNCTION, rotationequal to90)
+    plt.tight_layout FUNCTION 
+    plt.show FUNCTION
+
+
+DEFINE FUNCTION CALLED: validate_account_type(account_type):
+    account_types equal to ["Salary", "Individual" , "Business"]
+    IF the account_type in account_types:
+        return account_type
+    ELSE:
+        DISPLAY("Invalid Account type, check your spelling")
+    
+DEFINE FUNCTION CALLED: email validation funtion(email):
+    try:
+        valid_email equal to validate_email(email)
+        email equal to valid_email.email
+        return True
+    except e:
+        DISPLAY("Invalid Email Format")
+    
+DEFINE FUNCTION CALLED: name_validation(account_name):
+       return all(char.isalpha FUNCTION or char.isspace FUNCTION or charequal toequal to"-" for char in account_name)
+
+DEFINE FUNCTION CALLED: validate_dob(dob):
+    IMPORT datetime
+    from datetime IMPORT datetime, date
+    IF the dob:
+        current_date equal to date.today FUNCTION
+        age equal to current_date.year - dob.year
+        for_under_age equal to 18 - age
+        IF the (current_date.month, current_date.day) < (dob.month, dob.day):
+            age equal to age minus 1
+            IF the age greater than or equal to 18: 
+                pass    
+            ELSE:
+                
+                DISPLAY("Your age is below 18, you'can't contnue. Thank you for chosing BEP01 banking application. Hope to see you in the next {for_under_age}")
+    ELSE:
+        return f"You entered a wrong date format"    
+    return dob.strftime("%Y%m%d"), age
+DEFINE FUNCTION CALLED: generate_account_number(dob):
+    dob equal to str(dob.strftime("%Y%m%d"))
+    account_number equal to dob  plus "-"  plus "".join(random.choices(string.digits, kequal to4))
+    return account_number
+
+DEFINE FUNCTION CALLED: balance_checker(account_number):
+    d_df equal to READ csv file:("deposit_database.csv")
+    IF the if the file in the braket does not existing in the paths of the operating sysem("withdrawal_database.csv"):
+        w_df equal to READ csv file:("withdrawal_database.csv")
+        balancer_checker equal to d_df.merge(w_df, on equal to ["Transaction_id", "Balance"], how equal to 'outer')
+        balance equal to balancer_checker balance column.iloc[0]
+        DISPLAY(f"\nAcccount_number: {account_number}\nBalance: {balance}")
+        return f"\nAcccount_number: {account_number}\nBalance: {balance}"
+    ELSE:
+        withdrawal_df(account_number)
+        w_df equal to READ csv file:("withdrawal_database.csv")
+        balancer_checker equal to d_df.merge(w_df, on equal to ["Transaction_id", "Balance"], how equal to 'outer')
+        subset_checker equal to balancer_checker[["Account_name","Account_number","Deposit", "Withdrawal", "Balance"]]
+        balance equal to subset_checker balance column.iloc[0]
+        DISPLAY(f"\nAcccount_number: {account_number}\nBalance: {balance}")
+        return f"\nAcccount_number: {account_number}\nBalance: {balance}"
+DEFINE FUNCTION CALLED: set_overdraft_limit FUNCTION:
+    df equal to READ csv file:("transaction.csv")
+    otp equal to random integer numbers from (100000, 999999)
+    DISPLAY(f"Your OTP is {otp} please keep safe")
+    otp_check equal to int(input("Type in the OTP sent to your email: "))
+    otp equal to int(otp)
+    IF the otp_check equal toequal to otp:
+        limit equal to (df balance column.sum FUNCTION * 3 /100) * -1
+        overdraft_limit equal to limit
+        DISPLAY(f"Overdraft limit set to {round(overdraft_limit vlue to 2 decimal fractions)}")
+    ELSE:
+        DISPLAY("Incorrect OTP. Please try again.")
+DEFINE FUNCTION CALLED: apply_for_a_loan(account_type):
+    df equal to READ csv file:("wtihdrawal.csv")
+    otp equal to random integer numbers from (100000, 999999)
+    DISPLAY(f"Your OTP is {otp} please keep safe")
+    otp_check equal to int(input("Type in the OTP sent to your email: "))
+    otp equal to int(otp)
+    IF the otp_check equal toequal to otp:  
+        amount equal to float(input("Enter the loan amount: "))    
+        IF the account_type equal toequal to "salary" or "business":
+            DISPLAY("You are eligible for a loan.")
+            limit equal to (df balance column.sum FUNCTION * 3 /100) * -1
+            IF the df balance column.iloc[0] greater than or  limit:
+                DISPLAY(f"Loan approved.")
+            ELSE:
+                DISPLAY(f"You cannot exceed your {round(limit, 2)} ")
+        ELSE:
+            DISPLAY("You are not eligible for this loan.")
+    ELSE:
+        DISPLAY("Invalid OTP, try again")
+DEFINE FUNCTION CALLED: create_account FUNCTION:
+    while True:
+        first_name equal to input("First name: ").title FUNCTION
+        last_name equal to input("Last name: ").title FUNCTION
+        account_name equal to first_name  plus EMPTY string, plus last_name
+        IF the name_validation(account_name):
+            year_of_brith equal to int(input("Enter your year of birth: "))
+            month_of_birth equal to int(input("Enter your month of birth: "))
+            day_of_birth equal to int(input("Enter your day of birth: "))
+            dob equal to date(year_of_brith, month_of_birth, day_of_birth) 
+            IF the validate_dob(dob):
+                email equal to input("Enter your email: ")
+                IF the email validation funtion(email):
+                    account_type equal to input("Enter account type (salary/individual/business): ").title FUNCTION
+                    IF the validate_account_type(account_type):                     
+                        initial_deposit equal to float(input("Enter initial deposit amount: "))
+                        IF the initial_deposit greater than or  5:
+                            dob equal to str(dob.strftime("%Y%m%d"))
+                            account_number equal to dob  plus "-"  plus "".join(random.choices(string.digits, kequal to4))
+                            balance equal to initial_deposit
+                            DISPLAY("Account created successfully.")
+                            IF the not if the file in the braket does not existing in the paths of the operating sysem("customer_database.csv"):
+                                data equal to {"Transaction_id":[], "Account Name": [], "Account_number": [], "DOB":[], "Email":[],"Account_type": [], "Deposit":[]}
+                                df equal to pd.DataFrame.from_dict(data)
+                                updated_data equal to {"Transaction_id": [transaction_id], "Account Name": [account_name ], "Account_number": [account_number], "DOB":[dob], "Email":[email],"Account_type": [account_type], "Deposit":[initial_deposit]}
+                                new_df equal to pd.DataFrame.from_dict(updated_data)    
+                                updated_data equal to pd.concat([df, new_df], ignore_indexequal toTrue)
+                                updated_data date column equal to date_time.strftime('%m/%d/%Y')
+                                updated_data month column equal to date_time.strftime('%b')
+                                updated_data time column equal to date_time.strftime('%H:%M:%S')
+                                updated_data balance column equal to balance
+                                updated_data save file to a csv file: ('customer_database.csv', indexequal toFalse)     
+                                DISPLAY(f"\nAccount Name: {account_name}\nAccount Number: {account_number}\nBalance: {round(balance, 2)}")    
+                                return f"\nAccount Name: {account_name}\nAccount Number: {account_number}\nBalance: {round(balance, 2)}"          
+                            ELSE:
+                                df equal to READ csv file:("customer_database.csv")
+                                updated_data equal to {"Transaction_id": [transaction_id], "Account Name": [account_name ], "Account_number": [account_number], "DOB":[dob], "Email":[email],"Account_type": [account_type], "Deposit":[initial_deposit]}
+                                new_df equal to pd.DataFrame.from_dict(updated_data)    
+                                updated_data equal to pd.concat([df, new_df], ignore_indexequal toTrue)
+                                updated_data date column equal to date_time.strftime('%m/%d/%Y')
+                                updated_data month column equal to date_time.strftime('%b')
+                                updated_data time column equal to date_time.strftime('%H:%M:%S')
+                                updated_data balance column equal to balance
+                                updated_data save file to a csv file: ('customer_database.csv', indexequal toFalse)
+                                DISPLAY(f"\nAccount Name: {account_name}\nAccount Number: {account_number}\nBalance: {round(balance, 2)}")
+                                return f"\nAccount Name: {account_name}\nAccount Number: {account_number}\nBalance: {round(balance, 2)}" 
+                        ELSE:
+                            DISPLAY("Initial deposit for account opening is $5 (min)")             
+                            
+            ELSE:
+                DISPLAY("Invalid Date Format")
+        ELSE:
+            DISPLAY("Name should have only alphabets")        
+
+DEFINE FUNCTION CALLED: main FUNCTION:
+    DISPLAY("Welcome to BEP01 bank Application")
+    while True:
+        DISPLAY("\n1. Create Account")
+        DISPLAY("2. Deposit Funds")
+        DISPLAY("3. Check Account Balance")
+        DISPLAY("4. Withdraw Funds")
+        DISPLAY("5. Set overdraft limit")
+        DISPLAY("6. Apply for Loan")
+        DISPLAY("7. Transaction Analysis")
+        DISPLAY("8. Exit")
+        choice equal to int(input("\nEnter your choice: "))
+        IF the choice equal toequal to 1:
+            account equal to create_account FUNCTION
+        elIF the choice in [2, 3, 4, 5, 6,7]:
+            df equal to READ csv file:("customer_database.csv")
+            account_number equal to input("Enter your account number: ")
+            IF the account_number in df["Account_number"].values:
+                IF the choice equal toequal to 2:
+                    d_category_type equal to input('Deposit Category[Savings, Fixed Deposit]: ').title FUNCTION
+                    deposit_df(d_category_type, account_number)
+                elIF the choice equal toequal to 3:
+                    balance_checker(account_number)
+                elIF the choice equal toequal to 4:
+                    withdrawal_df(account_number)
+                elIF the choice equal toequal to 5:
+                    set_overdraft_limit FUNCTION
+                elIF the choice equal toequal to 6:
+                    account_type equal to input("Enter account type (salary/individual/business): ").title FUNCTION
+                    IF the account_type equal toequal to "Salary" or "Business":
+                        apply_for_a_loan(account_type)
+                elIF the choice equal toequal to 7:
+                    DISPLAY("1. View Transaction Analysis")
+                    DISPLAY("2. View Recommendation")
+                    transaction_choice equal to int(input("Enter your choice: "))
+                    IF the transaction_choice equal toequal to 1:
+                        analyser FUNCTION
+                        visuals FUNCTION
+                    elIF the transaction_choice equal toequal to 2:
+                        analyser FUNCTION
+                        generate_recommendations FUNCTION
+                    ELSE:
+                        DISPLAY("Select the correct option")
+            ELSE:
+                DISPLAY("Account number not found.")
+        elIF the choice equal toequal to 8:
+            DISPLAY("Thank you for using the bank application!")
+            break
+        ELSE:
+            DISPLAY("Invalid choice. Please try again.")
+
+IF the __name__ is same as "__main__":
+    EXECUTE main FUNCTION

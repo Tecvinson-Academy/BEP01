@@ -1,0 +1,6 @@
+Transaction_id,Expense_category,Transaction_type,Description,Account_number,Deposit,Deposit_type,Date,Month,Time,Balance,Withdrawal,Amount,Time_dep_diff,Time_witd_diff,Consecutive_dep_drops,Consecutive_witd_drops
+BEPO193415984,,Deposit,Savings,19891212-4102,34690.0,Savings,08/29/2024,Aug,18:26:10,43064.0,0.0,34690.0,0.0,0.0,0.0,0.0
+BEPO195018868,,Deposit,Savings,19891212-4102,2358.0,Savings,08/29/2024,Aug,18:26:10,,0.0,2358.0,-32332.0,0.0,0.0,0.0
+BEPO195018868,,Deposit,Savings,19891212-4102,3456.0,Savings,08/29/2024,Aug,18:26:10,,0.0,3456.0,1098.0,0.0,0.0,0.0
+BEPO102967122,Utility,Withdrawal,Utility,19891212-4102,0.0,,08/29/2024,Aug,20:37:19,42376.0,450.0,450.0,-3456.0,450.0,0.0,0.0
+BEPO148897973,Sports,Withdrawal,Sports,19891212-4102,0.0,,08/29/2024,Aug,20:37:19,,238.0,238.0,0.0,-212.0,0.0,0.0

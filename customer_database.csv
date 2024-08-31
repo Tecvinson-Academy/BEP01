@@ -1,0 +1,4 @@
+Transaction_id,Account Name,Account_number,DOB,Email,Account_type,Deposit,Date,Month,Time,Balance
+BEPO167331851,Chukwudi Aguekpe,19891212-4102,19891212,chukwu@yahoo.com,Individual,2560.0,08/29/2024,Aug,05:45:05,2560.0
+BEPO169813625,Enyinnia Clifford,19881022-4190,19881022,enyinniatochi@gmail.com,Salary,260000.0,08/29/2024,Aug,05:45:05,262560.0
+BEPO160351663,Enyinnia Clifford,19821010-7419,19821010,enyinnia@aol.com,Salary,23450.0,08/29/2024,Aug,05:45:05,286010.0
