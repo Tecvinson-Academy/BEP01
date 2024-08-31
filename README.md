@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 BEP01 Bank Application
 
 Description:
@@ -55,3 +56,7 @@ How to use:
 Run the bank_app.py file to see the application menus and follow the user prompt.
 Modify the values in the if __name__ == "__main__": block to perform different tasks.
 
+=======
+# BEP01
+Repository for team BEP01
+>>>>>>> c877a6d1f2d705d9f75e8e4b5203abc851d2f4e9
